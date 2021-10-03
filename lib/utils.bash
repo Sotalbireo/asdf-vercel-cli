@@ -27,7 +27,7 @@ sort_versions() {
 list_github_tags() {
   git ls-remote --tags --refs "$GH_REPO" |
     grep -o 'refs/tags/.*' | cut -d/ -f3- |
-    sed 's/^v//' # NOTE: You might want to adapt this sed to remove non-version strings from tags
+    # sed 's/^v//' # NOTE: You might want to adapt this sed to remove non-version strings from tags
 }
 
 list_all_versions() {
@@ -42,7 +42,7 @@ download_release() {
   filename="$2"
 
   # Adapt the release URL convention for vercel-cli
-  url="$GH_REPO/archive/v${version}.tar.gz"
+  url="$GH_REPO/archive/${version}.tar.gz"
 
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
